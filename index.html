@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bodas de Rubí | Sandra & Carlos</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ruby:#7b1e2b;
+      --ruby2:#9a2738;
+      --blush:#f7e7ea;
+      --cream:#fff9f3;
+      --gold:#c8a24d;
+      --ink:#2a2a2a;
+      --card:#ffffff;
+      --shadow: 0 18px 50px rgba(24, 24, 24, .10);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
+    body{
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 500px at 20% -10%, rgba(200,162,77,.18), transparent 60%),
+        radial-gradient(900px 450px at 90% 10%, rgba(123,30,43,.12), transparent 55%),
+        linear-gradient(180deg, var(--cream), var(--blush));
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    /* --- subtle floral divider (pure CSS) --- */
+    .divider{
+      height:32px;
+      margin: 26px auto 0;
+      width:min(520px, 92%);
+      opacity:.8;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(200,162,77,.45) 0 2px, transparent 3px),
+        radial-gradient(circle at 40% 50%, rgba(123,30,43,.22) 0 9px, transparent 10px),
+        radial-gradient(circle at 60% 50%, rgba(123,30,43,.22) 0 9px, transparent 10px),
+        linear-gradient(90deg, transparent, rgba(200,162,77,.35), transparent);
+      mask:
+        radial-gradient(circle at 50% 50%, #000 0 16px, transparent 17px),
+        linear-gradient(#000,#000);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border-radius:999px;
+      filter: blur(.1px);
+    }
+
+    /* Layout */
+    .wrap{ width:min(1100px, 92%); margin:0 auto; }
+    section{ padding: 72px 0; position:relative; }
+    .kicker{
+      font-size: .9rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color: rgba(42,42,42,.65);
+    }
+    h2{
+      font-family:'Playfair Display', serif;
+      font-weight:600;
+      font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+      margin-top:10px;
+      color: var(--ruby);
+    }
+    p.lead{
+      font-size: clamp(1.02rem, 1.15vw, 1.12rem);
+      color: rgba(42,42,42,.82);
+      margin-top: 16px;
+      max-width: 62ch;
+    }
+
+    /* Hero */
+    .hero{
+      min-height: 100vh;
+      display:grid;
+      place-items:center;
+      position:relative;
+      padding: 28px 0 54px;
+      isolation:isolate;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.52), rgba(0,0,0,.35)),
+        url("https://images.unsplash.com/photo-1520857014576-2c4f4c972b57?auto=format&fit=crop&w=2200&q=80");
+      background-size:cover;
+      background-position:center;
+      z-index:-2;
+      transform: scale(1.03);
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 420px at 50% 30%, rgba(200,162,77,.35), transparent 60%),
+        radial-gradient(1100px 550px at 50% 110%, rgba(123,30,43,.35), transparent 60%);
+      z-index:-1;
+      pointer-events:none;
+    }
+
+    .topbar{
+      position:fixed;
+      top: 14px; left: 0; right: 0;
+      z-index:20;
+      display:flex;
+      justify-content:center;
+      pointer-events:none;
+    }
+    .topbar .pill{
+      pointer-events:auto;
+      width:min(980px, 92%);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; color:#fff;
+      font-weight:600;
+      letter-spacing:.06em;
+    }
+    .monogram{
+      width:36px; height:36px; border-radius:50%;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.45);
+      background: rgba(0,0,0,.12);
+      font-family:'Playfair Display', serif;
+      font-weight:600;
+    }
+    nav a{
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
+      font-size:.92rem;
+      padding: 8px 10px;
+      border-radius: 999px;
+      transition: background .2s ease, transform .2s ease;
+    }
+    nav a:hover{
+      background: rgba(255,255,255,.12);
+      transform: translateY(-1px);
+    }
+
+    .heroCard{
+      width:min(920px, 92%);
+      text-align:center;
+      color:#fff;
+      padding: clamp(24px, 3.2vw, 44px);
+      border-radius: calc(var(--radius) + 8px);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 26px 80px rgba(0,0,0,.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .heroTitle{
+      font-family:'Great Vibes', cursive;
+      font-weight:400;
+      font-size: clamp(3.1rem, 6vw, 5.2rem);
+      line-height: .95;
+      text-shadow: 0 16px 44px rgba(0,0,0,.35);
+      margin-top: 8px;
+    }
+    .heroSub{
+      font-family:'Playfair Display', serif;
+      font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+      opacity:.95;
+      margin-top: 10px;
+    }
+    .heroMeta{
+      margin-top: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      color: rgba(255,255,255,.92);
+    }
+    .chip{
+      border: 1px solid rgba(255,255,255,.30);
+      background: rgba(0,0,0,.14);
+      padding: 8px 12px;
+      border-radius:999px;
+      font-size:.92rem;
+    }
+
+    /* Buttons */
+    .btnRow{
+      margin-top: 22px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight:700;
+      letter-spacing:.02em;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      user-select:none;
+      will-change: transform;
+    }
+    .btn:active{ transform: translateY(1px); }
+
+    .btnPrimary{
+      background: linear-gradient(135deg, var(--ruby), var(--ruby2));
+      color:#fff;
+      box-shadow: 0 14px 30px rgba(123,30,43,.26);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .btnPrimary:hover{ transform: translateY(-2px); }
+
+    .btnGhost{
+      background: rgba(255,255,255,.12);
+      color:#fff;
+      border: 1px solid rgba(255,255,255,.30);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .btnGhost:hover{ background: rgba(255,255,255,.18); transform: translateY(-2px); }
+
+    /* Cards */
+    .grid{
+      margin-top: 34px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+    .card{
+      grid-column: span 6;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,.06);
+      padding: 24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(420px 220px at 20% 0%, rgba(200,162,77,.20), transparent 60%),
+        radial-gradient(420px 240px at 90% 20%, rgba(123,30,43,.12), transparent 62%);
+      pointer-events:none;
+    }
+    .card > *{ position:relative; }
+
+    .card h3{
+      font-family:'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--ruby);
+      margin-bottom: 8px;
+    }
+    .card p{
+      color: rgba(42,42,42,.82);
+      margin-bottom: 14px;
+    }
+    .muted{
+      color: rgba(42,42,42,.68);
+      font-size: .95rem;
+    }
+
+    .miniBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 11px 14px;
+      border-radius: 999px;
+      background: rgba(200,162,77,.16);
+      color: var(--ruby);
+      border: 1px solid rgba(200,162,77,.35);
+      text-decoration:none;
+      font-weight:800;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .miniBtn:hover{
+      background: rgba(200,162,77,.22);
+      transform: translateY(-2px);
+    }
+
+    /* RSVP section */
+    .rsvp{
+      border-radius: calc(var(--radius) + 10px);
+      background:
+        radial-gradient(900px 420px at 20% 0%, rgba(200,162,77,.22), transparent 60%),
+        radial-gradient(900px 520px at 90% 20%, rgba(123,30,43,.14), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55));
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 3vw, 34px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .rsvp .text{
+      max-width: 60ch;
+    }
+    .rsvp h3{
+      font-family:'Playfair Display', serif;
+      color: var(--ruby);
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+
+    /* Footer */
+    footer{
+      padding: 36px 0 46px;
+      text-align:center;
+      color: rgba(42,42,42,.72);
+      font-size:.95rem;
+    }
+    footer .sig{
+      font-family:'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--ruby);
+      margin-top: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .card{ grid-column: span 12; }
+      nav{ display:none; } /* limpio en móvil */
+    }
+
+    /* Animations (simple + elegant) */
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform:none;
+    }
+
+    /* Small icon dots */
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: rgba(200,162,77,.9);
+      display:inline-block;
+      box-shadow: 0 8px 18px rgba(200,162,77,.25);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top pill nav -->
+  <div class="topbar">
+    <div class="pill">
+      <div class="brand">
+        <div class="monogram">S&C</div>
+        <div style="display:flex; flex-direction:column; line-height:1.1;">
+          <span style="font-size:.95rem;">Bodas de Rubí</span>
+          <span style="font-size:.78rem; opacity:.9; font-weight:500;">40 años de amor</span>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#celebracion">Celebración</a>
+        <a href="#ubicaciones">Ubicaciones</a>
+        <a href="#rsvp">Confirmación</a>
+      </nav>
+
+      <button id="musicBtn" class="btn btnGhost" type="button" aria-label="Música">
+        <span class="dot"></span>
+        <span id="musicLabel">Música</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="heroCard reveal">
+      <div class="kicker" style="color: rgba(255,255,255,.85);">INVITACIÓN</div>
+
+      <div class="heroTitle">Sandra & Carlos</div>
+      <div class="heroSub">Bodas de Rubí · 40 años de matrimonio</div>
+
+      <div class="heroMeta">
+        <!-- EDITAR fecha / ciudad -->
+        <div class="chip">📅 <strong>Fecha:</strong> (completar)</div>
+        <div class="chip">📍 <strong>Ciudad:</strong> (completar)</div>
+        <div class="chip">✨ <strong>Dress code:</strong> elegante</div>
+      </div>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="lead" style="margin: 18px auto 0; color: rgba(255,255,255,.92);">
+        Con mucha alegría, los invitamos a celebrar con nosotros este aniversario tan especial.
+        Su presencia hará este momento aún más inolvidable.
+      </p>
+
+      <div class="btnRow">
+        <a class="btn btnPrimary" href="#rsvp">Confirmar presencia</a>
+        <a class="btn btnGhost" href="#ubicaciones">Ver ubicaciones</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CELEBRACIÓN -->
+  <section id="celebracion">
+    <div class="wrap">
+      <div class="kicker reveal">CON AMOR</div>
+      <h2 class="reveal">Una noche para celebrar lo vivido</h2>
+      <p class="lead reveal">
+        Cuatro décadas, mil recuerdos, y el mismo “sí” de siempre.
+        Los esperamos para compartir una ceremonia íntima y luego una celebración llena de brindis, música y alegría.
+      </p>
+
+      <div class="divider reveal" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- UBICACIONES -->
+  <section id="ubicaciones" style="padding-top: 28px;">
+    <div class="wrap">
+      <div class="kicker reveal">UBICACIONES</div>
+      <h2 class="reveal">Ceremonia y fiesta</h2>
+
+      <div class="grid">
+        <!-- Iglesia -->
+        <article class="card reveal">
+          <h3>⛪ Ceremonia religiosa</h3>
+          <p class="muted">
+            <strong>Iglesia:</strong> (Nombre de la iglesia)<br>
+            <strong>Dirección:</strong> (Dirección completa)<br>
+            <strong>Hora:</strong> (HH:MM)
+          </p>
+          <!-- Reemplazar por link real de Google Maps -->
+          <a class="miniBtn" href="https://www.google.com/maps" target="_blank" rel="noopener">
+            Ver en Google Maps
+          </a>
+        </article>
+
+        <!-- Salón -->
+        <article class="card reveal">
+          <h3>🥂 Salón de la fiesta</h3>
+          <p class="muted">
+            <strong>Salón:</strong> (Nombre del salón)<br>
+            <strong>Dirección:</strong> (Dirección completa)<br>
+            <strong>Hora:</strong> (HH:MM)
+          </p>
+          <!-- Reemplazar por link real de Google Maps -->
+          <a class="miniBtn" href="https://www.google.com/maps" target="_blank" rel="noopener">
+            Ver en Google Maps
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp">
+    <div class="wrap">
+      <div class="rsvp reveal">
+        <div class="text">
+          <div class="kicker">CONFIRMACIÓN</div>
+          <h3>¿Nos acompañás?</h3>
+          <p class="lead" style="margin-top:10px;">
+            Por favor confirmá tu presencia para ayudarnos con la organización.
+          </p>
+          <p class="muted" style="margin-top:10px;">
+            (Si hay restricciones alimentarias, podés indicarlas al confirmar.)
+          </p>
+        </div>
+
+        <!-- Reemplazar por tu link de Google Form o Google Drive -->
+        <a class="btn btnPrimary" href="https://drive.google.com" target="_blank" rel="noopener">
+          Confirmar presencia
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div>Gracias por ser parte de nuestra historia 💛</div>
+      <div class="sig">Sandra & Carlos</div>
+      <div style="margin-top:8px;">Bodas de Rubí · 40 años</div>
+    </div>
+  </footer>
+
+  <!-- AUDIO (opcional) -->
+  <!--
+    1) Coloca un archivo llamado "music.mp3" en la misma carpeta que este index.html
+    2) El botón "Música" inicia/detiene (no hay autoplay por restricciones del navegador)
+  -->
+  <audio id="bgMusic" preload="none">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('show');
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Music toggle
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicBtn');
+    const label = document.getElementById('musicLabel');
+
+    let playing = false;
+
+    btn.addEventListener('click', async () => {
+      try{
+        if(!playing){
+          await music.play();
+          playing = true;
+          label.textContent = "Pausar";
+        }else{
+          music.pause();
+          playing = false;
+          label.textContent = "Música";
+        }
+      }catch(err){
+        // Si el navegador bloquea, igual mantenemos UI simple
+        alert("Para activar la música, intentá nuevamente o interactuá con la página.");
+      }
+    });
+  </script>
+
+</body>
+</html>
